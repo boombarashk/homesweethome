@@ -17,7 +17,8 @@ const FieldRow: React.FC<FieldRowParamsType> = (fieldRowParams: FieldRowParamsTy
 
     return (
     <InputGroup label={ label }>
-        <Input value={ value } onChange={ ev => setPropFunction(ev) }/>
+        <Input value={ value } onChange={ ev => setPropFunction(ev) }
+               id={`Input-${(Math.random()*1000).toFixed()}`}/>
     </InputGroup>
     )
 }

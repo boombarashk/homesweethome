@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import FormCalculator from './components/Form';
 import { enterData } from './interfaces'
+import './App.css';
 
 function useCircs(initialState: enterData): enterData & any{
     let [ sum, setSum ] = useState( initialState.sum )
@@ -31,6 +32,8 @@ const App: React.FC = () => {
 
     return (
         <div className="App">
+            <div className="App-header">Ипотечный калькулятор</div>
+
             <FormCalculator { ...props }/>
         </div>
     );

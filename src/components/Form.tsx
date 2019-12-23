@@ -30,12 +30,14 @@ const FormCalculator: React.FC<EnterDataType> = (useCircs) => {
                                { ...params}/>)
 
     // fixme add mask
-    return <div style={{width: "300px", margin: "0 auto"}}>
+    return <div className="Form-container">
         { fieldRows }
-
-        Выплата в месяц: { debtMonth.toFixed(2) }
-        <br/>
-        Размер переплаты: { (debtMonth * countMonth - creditSum).toFixed(2) }
+        <div className="css-1m1f705-InputGroup">
+            <div>
+                <span className="css-1nebzlv-Text">Выплата в месяц:</span> { debtMonth.toFixed(2) }
+            </div>
+            <span className="css-1nebzlv-Text">Размер переплаты:</span> { (debtMonth * countMonth - creditSum).toFixed(2) }
+        </div>
     </div>
 }
 
