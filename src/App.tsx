@@ -1,15 +1,16 @@
-import React, { useState } from 'react';
+import React, {useEffect, useReducer, useState} from 'react';
 import FormCalculator from './components/Form';
-import { enterData } from './interfaces'
+import Promo from './components/Promo';
+import {IAction, IEnterData} from './interfaces'
 import './App.css';
 
-function useCircs(initialState: enterData): enterData & any{
+function useCircs(initialState: IEnterData): IEnterData & any{
     let [ sum, setSum ] = useState( initialState.sum )
     let [ firstsum, setFirstsum ] = useState( initialState.firstsum )
     let [ rate, setRate ] = useState( initialState.rate )
     let [ countMonth, setCountMonth ] = useState( initialState.countMonth )
 
-    let setParams: ({sum, firstsum, countMonth, rate}: enterData) => void;
+    let setParams: ({sum, firstsum, countMonth, rate}: IEnterData) => void;
     setParams = ({sum, firstsum, countMonth, rate}) => {
         if (sum) setSum(sum)
         if (firstsum) setFirstsum(firstsum)
@@ -20,8 +21,17 @@ function useCircs(initialState: enterData): enterData & any{
     return { sum, firstsum, rate, countMonth, setParams }
 }
 
+const ACTION_TOGGLE_PROMO = 'toggle-show-promo'
+
+function reducer(state: any, action: IAction): any {
+    switch (action.type) {
+        case ACTION_TOGGLE_PROMO:
+            return {showPromo: !state.showPromo}
+        default: ;
+    }
+}
+
 const App: React.FC = () => {
-    // useUffect hot action!
 
     let props = useCircs({
         sum: 1800000,
@@ -30,13 +40,24 @@ const App: React.FC = () => {
         countMonth: 12 * 5
     })
 
-    return (
-        <div className="App">
-            <div className="App-header">Ипотечный калькулятор</div>
+    let [{showPromo}, dispatch] = useReducer(reducer, {showPromo: false});
 
-            <FormCalculator { ...props }/>
-        </div>
-    );
+    useEffect(() => {
+        const timer = setTimeout(() => {
+
+            props.setParams({rate: 6.9} as IEnterData);
+            dispatch({type: ACTION_TOGGLE_PROMO})
+
+        }, 3000);
+        return () => clearTimeout(timer);
+    }, []);
+
+    return <div className="App">
+        <div className="App-header">Ипотечный калькулятор</div>
+        <FormCalculator {...props}/>
+
+        <Promo showPromo={showPromo} rate={props.rate}/>
+    </div>;
 }
 
 export default App;

@@ -1,11 +1,11 @@
 import React from 'react';
 import { InputGroup, Input } from "sancho";
-import { fieldRowParams } from '../interfaces'
+import { IFieldRowParams } from '../interfaces'
 
-type FieldRowParamsType = ReturnType<fieldRowParams & any>
+type FieldRowParamsType = ReturnType<IFieldRowParams & any>
 
-const FieldRow: React.FC<FieldRowParamsType> = (fieldRowParams: FieldRowParamsType) => {
-    const {label, value, fieldName, setFunction} = fieldRowParams
+const FieldRow: React.FC<FieldRowParamsType> = (IFieldRowParams: FieldRowParamsType) => {
+    const {label, value, fieldName, setFunction} = IFieldRowParams
 
     let setPropFunction: (ev: object) => any
     setPropFunction = (ev) => {

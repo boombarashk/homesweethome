@@ -1,8 +1,8 @@
 import React from 'react';
 import FieldRow from "./FieldRow"
-import { enterData } from '../interfaces'
+import { IEnterData } from '../interfaces'
 
-type EnterDataType = ReturnType<enterData & any>
+type EnterDataType = ReturnType<IEnterData & any>
 /**
  * аннуитетные платежи:
  * Платеж = сумма кредита × %_ставка в месяц / 1-(1+ %_ставка в месяц)^ -количество месяцев
